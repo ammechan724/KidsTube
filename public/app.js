@@ -1,9 +1,11 @@
-// app.js — Kids YouTube client
+// app.js — KidsTube client
+// v2: combines 20-per-channel picks into one big shuffled grid.
 const state = {
   data: null,
-  activeChannel: null,    // null = all
+  activeChannel: null,    // null = all channels, big shuffled list
   picksPerChannel: 20,
-  videoOrder: new Map(),  // channelId -> array of video indices
+  picksByChannel: new Map(),  // channelId -> array of video indices
+  flatOrder: [],              // flattened [{chIdx, vidIdx}, ...] for big grid
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -17,12 +19,16 @@ async function loadData() {
 }
 
 function seedShuffles() {
-  for (const ch of state.data.channels) {
-    state.videoOrder.set(
-      ch.channelId,
-      shuffledIndices(ch.videos.length).slice(0, state.picksPerChannel)
-    );
-  }
+  state.picksByChannel.clear();
+  state.flatOrder = [];
+  state.data.channels.forEach((ch, chIdx) => {
+    const idxs = shuffledIndices(ch.videos.length).slice(0, state.picksPerChannel);
+    state.picksByChannel.set(ch.channelId, idxs);
+    for (const vidIdx of idxs) {
+      state.flatOrder.push({ chIdx, vidIdx });
+    }
+  });
+  shuffleInPlace(state.flatOrder);
 }
 
 function shuffledIndices(n) {
@@ -34,10 +40,16 @@ function shuffledIndices(n) {
   return arr;
 }
 
+function shuffleInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 function reshuffle() {
   seedShuffles();
   render();
-  // visual ping
   const btn = $('#shuffleBtn');
   btn.style.transform = 'rotate(360deg)';
   setTimeout(() => { btn.style.transform = ''; }, 350);
@@ -52,18 +64,21 @@ function render() {
 function renderNav() {
   const nav = $('#channelNav');
   const channels = state.data.channels;
-  const totalActive = channels.filter(c => state.videoOrder.get(c.channelId)?.length).length;
+  const totalActive = state.flatOrder.length;
   nav.innerHTML = '';
-  // "All" pseudo-channel
+
+  // "All channels" — default view, big shuffled list
   const all = document.createElement('button');
   all.className = 'channel-link' + (state.activeChannel === null ? ' active' : '');
   all.innerHTML = `<span class="ch-dot"></span> <span>All channels</span> <span class="ch-count">${totalActive}</span>`;
   all.onclick = () => { state.activeChannel = null; render(); };
   nav.appendChild(all);
+
   for (const ch of channels) {
     const btn = document.createElement('button');
     btn.className = 'channel-link' + (state.activeChannel === ch.channelId ? ' active' : '');
-    btn.innerHTML = `<span class="ch-dot"></span> <span>${escapeHtml(ch.name)}</span> <span class="ch-count">${state.videoOrder.get(ch.channelId)?.length || 0}</span>`;
+    const count = state.picksByChannel.get(ch.channelId)?.length || 0;
+    btn.innerHTML = `<span class="ch-dot"></span> <span>${escapeHtml(ch.name)}</span> <span class="ch-count">${count}</span>`;
     btn.onclick = () => { state.activeChannel = ch.channelId; render(); };
     nav.appendChild(btn);
   }
@@ -72,28 +87,44 @@ function renderNav() {
 function renderContent() {
   const root = $('#content');
   root.innerHTML = '';
-  const channels = state.activeChannel
-    ? state.data.channels.filter(c => c.channelId === state.activeChannel)
-    : state.data.channels;
-  for (const ch of channels) {
-    const idxs = state.videoOrder.get(ch.channelId) || [];
-    if (!idxs.length) continue;
+
+  if (state.activeChannel) {
+    // Single-channel view: grid of that channel's picks
+    const ch = state.data.channels.find(c => c.channelId === state.activeChannel);
+    if (!ch) { state.activeChannel = null; return render(); }
+    const idxs = state.picksByChannel.get(ch.channelId) || [];
     const section = document.createElement('section');
     section.className = 'section';
     section.innerHTML = `
-        <div class="section-header">
-          <h2>${escapeHtml(ch.name)}</h2>
-          <span class="section-meta">${idxs.length} of ${ch.videos.length} videos</span>
-        </div>
-        <div class="grid"></div>
-      `;
+      <div class="section-header">
+        <h2>${escapeHtml(ch.name)}</h2>
+        <span class="section-meta">${idxs.length} of ${ch.videos.length} videos</span>
+      </div>
+      <div class="grid"></div>`;
     const grid = section.querySelector('.grid');
-    for (const i of idxs) {
-      const v = ch.videos[i];
-      grid.appendChild(videoCard(ch, v));
+    for (const vidIdx of idxs) {
+      grid.appendChild(videoCard(ch, ch.videos[vidIdx]));
+    }
+    root.appendChild(section);
+  } else {
+    // Big-list view: one big shuffled grid from all channels
+    const total = state.flatOrder.length;
+    const section = document.createElement('section');
+    section.className = 'section';
+    section.innerHTML = `
+      <div class="section-header">
+        <h2>Today's picks</h2>
+        <span class="section-meta">${total} videos · ${state.data.channels.length} channels</span>
+      </div>
+      <div class="grid"></div>`;
+    const grid = section.querySelector('.grid');
+    for (const { chIdx, vidIdx } of state.flatOrder) {
+      const ch = state.data.channels[chIdx];
+      grid.appendChild(videoCard(ch, ch.videos[vidIdx]));
     }
     root.appendChild(section);
   }
+
   if (!root.children.length) {
     root.innerHTML = '<div style="color:var(--text-dim);text-align:center;padding:40px;">No videos in this channel.</div>';
   }
@@ -150,7 +181,7 @@ function closePlayer() {
 }
 
 function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' }[c]));
 }
 function escapeAttr(s) { return escapeHtml(s); }
 

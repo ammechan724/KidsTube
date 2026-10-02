@@ -84,11 +84,16 @@ function extractVideos(data) {
     const node = stack.pop();
     if (!node || typeof node !== 'object') continue;
 
-    // New schema: lockupViewModel with contentType === VIDEO
-    if (node.lockupViewModel && node.lockupViewModel.contentType === 'LOCKUP_CONTENT_TYPE_VIDEO') {
+    // New schema: lockupViewModel with contentType === VIDEO (filter out Shorts, live, playlist)
+    if (node.lockupViewModel) {
+      const ct = node.lockupViewModel.contentType;
+      // Strict: only regular videos. Skip Shorts, Live, Playlists if they ever appear.
+      if (ct !== 'LOCKUP_CONTENT_TYPE_VIDEO') continue;
       const v = node.lockupViewModel;
       const videoId = v.contentId;
-      if (!videoId) continue;
+      if (!videoId || !/^[A-Za-z0-9_-]{11}$/.test(videoId)) continue;
+      // Reject Shorts: YouTube uses 11-char IDs for both, but Shorts have contentType 'SHORTS'.
+      // As defense-in-depth, also check title/url for shorts signature if we ever need to.
       const title = v.metadata?.lockupMetadataViewModel?.title?.content || '';
       const meta = v.metadata?.lockupMetadataViewModel?.metadata?.contentMetadataViewModel;
       const dateText = meta ? extractDateText(meta.metadataRows?.[0]?.metadataParts) : null;

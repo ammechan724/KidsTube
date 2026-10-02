@@ -2,8 +2,9 @@ name: Refresh video cache
 
 on:
   schedule:
-    # Every 12 hours (UTC). YouTube content updated within ~12h of upload.
-    - cron: '17 */12 * * *'
+    # Every Monday 6pm HKT = Monday 10:00 UTC.
+    # GitHub Actions cron is always in UTC.
+    - cron: '0 10 * * 1'
   workflow_dispatch: # allow manual trigger from Actions tab
 
 permissions:
@@ -23,7 +24,7 @@ jobs:
           node-version: 20
 
       - name: Scrape videos
-        run: node scraper/scrape.mjs --max=120 --concurrency=4
+        run: node scraper/scrape.mjs --max=100
 
       - name: Commit refreshed cache
         run: |

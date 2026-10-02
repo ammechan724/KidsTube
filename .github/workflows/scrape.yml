@@ -1,0 +1,38 @@
+name: Refresh video cache
+
+on:
+  schedule:
+    # Every 12 hours (UTC). YouTube content updated within ~12h of upload.
+    - cron: '17 */12 * * *'
+  workflow_dispatch: # allow manual trigger from Actions tab
+
+permissions:
+  contents: write   # needed so the workflow can commit the refreshed JSON
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Scrape videos
+        run: node scraper/scrape.mjs --max=120 --concurrency=4
+
+      - name: Commit refreshed cache
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name  "scraper-bot"
+            git config user.email "scraper-bot@users.noreply.github.com"
+            git add public/data/videos.json data/videos.json
+            git commit -m "chore: refresh video cache ($(date -u +%FT%TZ))"
+            git push
+          else
+            echo "No changes."
+          fi

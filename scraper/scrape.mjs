@@ -38,17 +38,18 @@ function parseRelativeDate(text) {
   // Try Chinese patterns first
   const zhPatterns = [
     [/(\d+)\s*秒前/, 'second'],
-    [/(\d+)\s*分钟前|(\d+)\s*分鐘前/, 'minute'],
-    [/(\d+)\s*小时前|(\d+)\s*小時前/, 'hour'],
-    [/(\d+)\s*天前|(\d+)\s*日前/, 'day'],
-    [/(\d+)\s*周前|(\d+)\s*週前/, 'week'],
-    [/(\d+)\s*个月前|(\d+)\s*個月前/, 'month'],
+    [/(\d+)\s*(?:分钟|分鐘)前/, 'minute'],
+    [/(\d+)\s*(?:小时|小時)前/, 'hour'],
+    [/(\d+)\s*(?:天|日)前/, 'day'],
+    [/(\d+)\s*(?:周|週)前/, 'week'],
+    [/(\d+)\s*(?:个月|個月)前/, 'month'],
     [/(\d+)\s*年前/, 'year'],
   ];
   for (const [pat, unit] of zhPatterns) {
     const m = s.match(pat);
     if (m) {
       const n = parseInt(m[1], 10);
+      if (!Number.isFinite(n)) continue;
       const ms = { second: 1000, minute: 60_000, hour: 3_600_000, day: 86_400_000, week: 604_800_000, month: 2_629_800_000, year: 31_557_600_000 }[unit];
       return Date.now() - n * ms;
     }

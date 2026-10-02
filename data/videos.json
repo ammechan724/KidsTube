@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-10-02T18:12:05.620Z",
+  "generatedAt": "2026-10-02T18:22:02.957Z",
   "daysBack": 730,
-  "maxPerChannel": 80,
+  "maxPerChannel": 120,
   "channels": [
     {
       "name": "Bebefinn",
@@ -220,7 +220,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/UtzuH4poMQv9ogsO75o8oMdbNmRbRsd2bJCCMqyxvhH-2uCZ8sMLnwFcHkZfBNjp8sByzDQVUQ",
-      "fetchedAt": 1790964723312
+      "fetchedAt": 1790965320482
     },
     {
       "name": "CBeebies",
@@ -305,13 +305,6 @@
           "publishedMs": null
         },
         {
-          "videoId": "atzzOYMmI5o",
-          "title": "Do Not Watch This Show! | Frog 🐸 | Full Episode | CBeebies",
-          "thumbnail": "https://i.ytimg.com/vi/atzzOYMmI5o/hqdefault.jpg",
-          "publishedText": "「",
-          "publishedMs": null
-        },
-        {
           "videoId": "r_NKZ5BO2VQ",
           "title": "Learn Fruits, Vegetables and Healthy Food for Toddlers and Kids 🍎 | Full Episode | CBeebies House  🌈",
           "thumbnail": "https://i.ytimg.com/vi/r_NKZ5BO2VQ/hqdefault.jpg",
@@ -340,13 +333,6 @@
           "publishedMs": null
         },
         {
-          "videoId": "MbynWfGTma4",
-          "title": "Do Not Watch This Show | Sleep 😴🌙  | Full Episode | CBeebies 📺✨",
-          "thumbnail": "https://i.ytimg.com/vi/MbynWfGTma4/hqdefault.jpg",
-          "publishedText": "「",
-          "publishedMs": null
-        },
-        {
           "videoId": "oQ60rbhLe-I",
           "title": "Jacob Collier Reads The Big-Time Boogie-Woogie Animal Band | CBeebies Bedtime Story 🌙📖",
           "thumbnail": "https://i.ytimg.com/vi/oQ60rbhLe-I/hqdefault.jpg",
@@ -364,7 +350,7 @@
           "videoId": "xSE5gILsEzo",
           "title": "Rafi the Wishing Wizard | Exciting New Adventures Compilation | CBeebies 🪄✨",
           "thumbnail": "https://i.ytimg.com/vi/xSE5gILsEzo/hqdefault.jpg",
-          "publishedText": "1 位觀眾正在等待",
+          "publishedText": "首播日期：2/10/2026 23:00",
           "publishedMs": null
         },
         {
@@ -396,13 +382,6 @@
           "publishedMs": null
         },
         {
-          "videoId": "jp8q7YacGxg",
-          "title": "The Traitors' Claudia Winkleman reads Monkeypig 🙊🐷 | CBeebies Bedtime Story for Toddlers 🌙📖",
-          "thumbnail": "https://i.ytimg.com/vi/jp8q7YacGxg/hqdefault.jpg",
-          "publishedText": "1 日前",
-          "publishedMs": null
-        },
-        {
           "videoId": "FhtzCpaVWsc",
           "title": "Halloween with Hey Duggee | Spooky Fun for Babies and Toddlers | CBeebies 🎃 🕷️",
           "thumbnail": "https://i.ytimg.com/vi/FhtzCpaVWsc/hqdefault.jpg",
@@ -418,7 +397,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/98R0DKiASF3R0kDUmj4UWIZ8ftQ6YzSk4KE0DXfTwPLCr8ixzd9GYJvkE7j-xE2jHMm0OCAjtMM",
-      "fetchedAt": 1790964723280
+      "fetchedAt": 1790965320476
     },
     {
       "name": "Sarah and Duck",
@@ -637,7 +616,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lknMjYYPLGVrn-pBMWchQ3ZgPWFZov0_qFxG_j5_0x",
-      "fetchedAt": 1790964723286
+      "fetchedAt": 1790965320443
     },
     {
       "name": "Bounce Patrol",
@@ -649,126 +628,126 @@
           "title": "Jingle Bells and More Christmas Nursery Rhymes",
           "thumbnail": "https://i.ytimg.com/vi/589piVgE7OE/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "1QLNvN4_swY",
           "title": "Alice the Camel - Kids Songs 🐫",
           "thumbnail": "https://i.ytimg.com/vi/1QLNvN4_swY/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "L36CRfk5p8Q",
           "title": "Colours Collection - 6 Songs in 15 Minutes! 🌈",
           "thumbnail": "https://i.ytimg.com/vi/L36CRfk5p8Q/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "2r_s6L1dFKQ",
           "title": "Ants Go Marching | Kids Nursery Rhymes 🐜🌈",
           "thumbnail": "https://i.ytimg.com/vi/2r_s6L1dFKQ/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "ZK6NsTHa_Ec",
           "title": "Can You Find the Animals? 🐘",
           "thumbnail": "https://i.ytimg.com/vi/ZK6NsTHa_Ec/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "usQGZTcRrco",
           "title": "Alice the Camel 🐫 Kids Songs",
           "thumbnail": "https://i.ytimg.com/vi/usQGZTcRrco/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "kIrUHPvIaVQ",
           "title": "Finger Family - Jobs and Occupations 👩‍⚕️👩‍🚒👨‍🏫 Kids Nursery Rhymes",
           "thumbnail": "https://i.ytimg.com/vi/kIrUHPvIaVQ/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "DpIxvz35Ozk",
           "title": "Sing & Dance with the Animals – 10 Fun Songs for Kids! 🐵🐘🐨",
           "thumbnail": "https://i.ytimg.com/vi/DpIxvz35Ozk/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "d92fVlLGYrE",
           "title": "Where is Pumpkin? | Catch the Runaway Veggies!",
           "thumbnail": "https://i.ytimg.com/vi/d92fVlLGYrE/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "Xtr8rNj5TP8",
           "title": "Learn Colours 🌈 Bounce Patrol Birdhouse 🐤 Full Episode",
           "thumbnail": "https://i.ytimg.com/vi/Xtr8rNj5TP8/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122948
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "O3PoiNME29Q",
           "title": "Can You Find the Vehicles? 🚒",
           "thumbnail": "https://i.ytimg.com/vi/O3PoiNME29Q/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "ME6OPdXj2BQ",
           "title": "Baby Shark Birthday Party - and More Kids Songs",
           "thumbnail": "https://i.ytimg.com/vi/ME6OPdXj2BQ/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "bBv-lP_8bVE",
           "title": "Teeny Tiny Ballerina 🩰 – Kids Song",
           "thumbnail": "https://i.ytimg.com/vi/bBv-lP_8bVE/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "EvswDdmv7c8",
           "title": "Finger Family: Yummy Fruit & Veggies! 🍎🥦 Plus more Finger Family Songs",
           "thumbnail": "https://i.ytimg.com/vi/EvswDdmv7c8/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "YAdHHRNmACc",
           "title": "Wheels on the Bus (Extended!) - Nursery Rhymes with Bounce Patrol",
           "thumbnail": "https://i.ytimg.com/vi/YAdHHRNmACc/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "LPNetMgYeJU",
           "title": "The Animal Sounds Song - Bounce Patrol",
           "thumbnail": "https://i.ytimg.com/vi/LPNetMgYeJU/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "cJ5Exx80Boo",
           "title": "Humpty Dumpty & More Nursery Rhymes | Bounce Patrol",
           "thumbnail": "https://i.ytimg.com/vi/cJ5Exx80Boo/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "7fxR_IsDt5g",
           "title": "Pop the Bubbles - Learn Colours 🟡🟣🟢🔴 Kids Color Song",
           "thumbnail": "https://i.ytimg.com/vi/7fxR_IsDt5g/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407122949
+          "publishedMs": 1759407720133
         },
         {
           "videoId": "Tvre5mUN2Xg",
@@ -856,7 +835,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_mI96w7ZDNqK8w_bxjASmLysfsUY2txHbXKZd8NTSnKF2s",
-      "fetchedAt": 1790964723306
+      "fetchedAt": 1790965320479
     },
     {
       "name": "The Wiggles",
@@ -1075,7 +1054,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/NYkVY0zjC2bivn1UOGmgCpsFl0y48SaMqv7qyzUaT4S67WEK-NLCA_CYSau16nfwXwiGRljT",
-      "fetchedAt": 1790964723892
+      "fetchedAt": 1790965321100
     },
     {
       "name": "Twirlywoos",
@@ -1294,7 +1273,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lyWkE4ghtkiRGmwfZmAUEqB-7gJiP1xRbfE_n-fQsGgLI",
-      "fetchedAt": 1790964723919
+      "fetchedAt": 1790965321093
     },
     {
       "name": "Peppa Pig",
@@ -1513,198 +1492,15 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/rif9IX4_RzmYGQylB0lO0R1jp-Jt7lOYxyOlgBdPtlZZdEhxSu0pMQctyHEInn_wW-0rtb8i7A",
-      "fetchedAt": 1790964723859
+      "fetchedAt": 1790965321074
     },
     {
       "name": "Daniel Tiger's Neighborhood",
       "handle": "@DanielTigersNeighbourhood",
       "channelId": "UCDqgSnRMGVx3dP4sn3ATZMA",
-      "videos": [
-        {
-          "videoId": "eykxCTA73nI",
-          "title": "Daniel Does It Himself | NEW Episode! | Season 5 (Full Episode) | Daniel Tiger",
-          "thumbnail": "https://i.ytimg.com/vi/eykxCTA73nI/hqdefault.jpg",
-          "publishedText": "3 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "IGM-r8baTN4",
-          "title": "Daniel Learns to Swing | NEW Episode! | Season 5 (Full Episode) | Daniel Tiger",
-          "thumbnail": "https://i.ytimg.com/vi/IGM-r8baTN4/hqdefault.jpg",
-          "publishedText": "3 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "oloZANav_g8",
-          "title": "Potty Training! | Daniel Tiger",
-          "thumbnail": "https://i.ytimg.com/vi/oloZANav_g8/hqdefault.jpg",
-          "publishedText": "3 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "3LLOpHmqxxg",
-          "title": "Daniel Loves his Sister Margaret! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/3LLOpHmqxxg/hqdefault.jpg",
-          "publishedText": "3 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "9AfD-N9HK8s",
-          "title": "Bath Time with Daniel Tiger | Full Episodes | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/9AfD-N9HK8s/hqdefault.jpg",
-          "publishedText": "3 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "EctpCVLoXlY",
-          "title": "Daniel's Make-Believe Songs 🎶 | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/EctpCVLoXlY/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "bg1YQ5mV5bo",
-          "title": "Daniel Does Arts & Crafts | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/bg1YQ5mV5bo/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "R6nF76uDWDA",
-          "title": "Daniel Eats Healthy | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/R6nF76uDWDA/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "N4cTNBbDTdw",
-          "title": "Daniel Learns Good Manners | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/N4cTNBbDTdw/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "ppwG65dGXzc",
-          "title": "Sharing your Emotions is Important! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/ppwG65dGXzc/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "_gcMBwof1JA",
-          "title": "Daniel Deals with Tough Emotions | Full Episodes | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/_gcMBwof1JA/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "Zqqw0Z9h2pM",
-          "title": "Daniel Discovers New Food | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/Zqqw0Z9h2pM/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "tJae0hJIh94",
-          "title": "Daniel Does Arts and Crafts | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/tJae0hJIh94/hqdefault.jpg",
-          "publishedText": "2 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "xnlsj5eRfuU",
-          "title": "Daniel Plays with Different Animals! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/xnlsj5eRfuU/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "OrNlkDVk_PA",
-          "title": "Daniels Big Emotions | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/OrNlkDVk_PA/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "Srvt0RQhpus",
-          "title": "Daniel Visits the Doctor! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/Srvt0RQhpus/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "-oHebcr_pGc",
-          "title": "Spending Time with Daniel's Family | 1 HOUR | Daniel Tigers Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/-oHebcr_pGc/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "JezKv5zsbes",
-          "title": "Daniel Loves Reading! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/JezKv5zsbes/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "joZNBosd3W4",
-          "title": "Daniel Learns the Importance of Family | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/joZNBosd3W4/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "0ViL51oaFxc",
-          "title": "Playing Dress Up with Baby Margaret! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/0ViL51oaFxc/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "BunU4sN53rw",
-          "title": "Playing Music with Daniel! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/BunU4sN53rw/hqdefault.jpg",
-          "publishedText": "1 個月前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "3l3M3CwUii4",
-          "title": "Daniel Builds a Rainbow Airplane! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/3l3M3CwUii4/hqdefault.jpg",
-          "publishedText": "4 星期前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "Qs_zic7Z48M",
-          "title": "Daniel's Beach Day Gone Wrong! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/Qs_zic7Z48M/hqdefault.jpg",
-          "publishedText": "3 星期前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "z_-IHuGuJH4",
-          "title": "Feeding Baby Ducks with Sister Margaret! | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/z_-IHuGuJH4/hqdefault.jpg",
-          "publishedText": "10 日前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "JibzTgZDjQQ",
-          "title": "Daniel's Halloween Costume! | Halloween for Kids | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/JibzTgZDjQQ/hqdefault.jpg",
-          "publishedText": "8 日前",
-          "publishedMs": null
-        },
-        {
-          "videoId": "Hk56IxjNKKs",
-          "title": "Dressing Up For Halloween! | Halloween for School | Daniel Tiger's Neighbourhood",
-          "thumbnail": "https://i.ytimg.com/vi/Hk56IxjNKKs/hqdefault.jpg",
-          "publishedText": "1 日前",
-          "publishedMs": null
-        }
-      ],
+      "videos": [],
       "avatar": "https://yt3.googleusercontent.com/k3pkf9JtoXBa4N_64NW6oEe1ZA0JUebvZB_g-AiFdymitKjPs476hhQagXUmL0ic7aEslnR1nQ",
-      "fetchedAt": 1790964723847
+      "fetchedAt": 1790965321167
     },
     {
       "name": "Ms Rachel",
@@ -1716,35 +1512,35 @@
           "title": "Toddler Learning with Ms Rachel - Nursery Rhymes & Kids Songs - Baby Video - Milestones & Speech",
           "thumbnail": "https://i.ytimg.com/vi/h67AgK4EHq4/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407124046
+          "publishedMs": 1759407721349
         },
         {
           "videoId": "GLigE_f4dl0",
           "title": "I Love A Rainbow with Ms Rachel, Elmo & Abby + MORE Nursery Rhymes & Kids Songs - Toddler Songs",
           "thumbnail": "https://i.ytimg.com/vi/GLigE_f4dl0/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407124046
+          "publishedMs": 1759407721349
         },
         {
           "videoId": "K_Aq4H03Nm4",
           "title": "Preschool & Toddler Learning Video with Ms Rachel - Learn Shapes, Letters, Numbers, Colors & More",
           "thumbnail": "https://i.ytimg.com/vi/K_Aq4H03Nm4/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407124046
+          "publishedMs": 1759407721349
         },
         {
           "videoId": "drkVagtmIJA",
           "title": "Hide and Seek with Ms Rachel & Elmo + More Games, Kids Songs, Nursery Rhymes & Social Skills",
           "thumbnail": "https://i.ytimg.com/vi/drkVagtmIJA/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407124046
+          "publishedMs": 1759407721349
         },
         {
           "videoId": "qXKsou9UmfY",
           "title": "Potty Training with Ms Rachel - Toddler Learning Video - Potty Songs for Toddlers - Potty Song",
           "thumbnail": "https://i.ytimg.com/vi/qXKsou9UmfY/hqdefault.jpg",
           "publishedText": "1 年前",
-          "publishedMs": 1759407124046
+          "publishedMs": 1759407721349
         },
         {
           "videoId": "tYDuAfY77Do",
@@ -1797,7 +1593,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/C2nKGvtlPIpTO80svL80ZRRArA_512rEBMiZH6IWForDdVLd0SlVYQVObnmHxzVTeH9sOeNO",
-      "fetchedAt": 1790964724047
+      "fetchedAt": 1790965321349
     },
     {
       "name": "Super Simple Songs",
@@ -2016,7 +1812,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/x7yHOvSWKX_olv_pgx1Ou4SsHI_eOg27sXy9jbNO15rHMG3y425LnmFIyoxDyvLA8Qi3k_0rWw",
-      "fetchedAt": 1790964724461
+      "fetchedAt": 1790965321712
     },
     {
       "name": "Yakka Dee!",
@@ -2235,7 +2031,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/wXrVZfIXaLOCTKh8SpSznXK1E0bOFc7oDn3oiNa2y5v6zUDysnQ-3i6t2L-qoK0unZe-VilJ",
-      "fetchedAt": 1790964724487
+      "fetchedAt": 1790965321669
     },
     {
       "name": "Baby Shark",
@@ -2447,7 +2243,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/knG-QhPZd_7hXTl9rzhS6cdDSwwZ18-JQjhGlG5MBnaYYhZ0BGpM9XWimktYU-hgo7KLkBFfKoo",
-      "fetchedAt": 1790964724511
+      "fetchedAt": 1790965321755
     },
     {
       "name": "Hogi",
@@ -2549,6 +2345,13 @@
           "videoId": "QTAgu62HWc8",
           "title": "Roar! 🦖Dinosaur vs. Ninimo | Missing Ninimo | Hogi Jingle Play | Kids Play | Hogi Pinkfong",
           "thumbnail": "https://i.ytimg.com/vi/QTAgu62HWc8/hqdefault.jpg",
+          "publishedText": "3 星期前",
+          "publishedMs": null
+        },
+        {
+          "videoId": "AeREVh2g6sY",
+          "title": "[BEST] Pinkfong Wonderstar Compilation🌟 | Mango Bird and More | Kids Animation | Hogi Pinkfong",
+          "thumbnail": "https://i.ytimg.com/vi/AeREVh2g6sY/hqdefault.jpg",
           "publishedText": "3 星期前",
           "publishedMs": null
         },
@@ -2659,7 +2462,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/2aD5FXlSmW-HXEUedTaebp-fCz-00CoO2ZAW91QDzIVcx1koKvkuGQud5ANMRof5tebM5cJ68j8",
-      "fetchedAt": 1790964724597
+      "fetchedAt": 1790965321944
     },
     {
       "name": "Teletubbies",
@@ -2878,7 +2681,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/5wGvACB-xpmAH5vfh3OJenMVRh-yMfJGwzdrOeggR-9j7O62GJEzR-eOQDnfJzpZXhgQAEaZ",
-      "fetchedAt": 1790964724990
+      "fetchedAt": 1790965322362
     },
     {
       "name": "ABCmouse",
@@ -3097,7 +2900,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/6fXY_5xLB1AFkXM-zZg23--QyoRaZrL97G_QMXpenptIfFS1_MWtcPryE8pc0qXkfTZ1xpcN3A",
-      "fetchedAt": 1790964725013
+      "fetchedAt": 1790965322274
     },
     {
       "name": "Bluey",
@@ -3231,6 +3034,13 @@
           "publishedMs": null
         },
         {
+          "videoId": "9SyKINCHY3g",
+          "title": "Let's Play…Cubby 💙 🧸 | Bluey and Bingo Playtime ⭐️ | Bluey",
+          "thumbnail": "https://i.ytimg.com/vi/9SyKINCHY3g/hqdefault.jpg",
+          "publishedText": "11 日前",
+          "publishedMs": null
+        },
+        {
           "videoId": "48Up6Z2WJOQ",
           "title": "Bedroom Bluey Book Read Aloud by Tan France ✨ | Bluey Book Reads 💙 | Bluey",
           "thumbnail": "https://i.ytimg.com/vi/48Up6Z2WJOQ/hqdefault.jpg",
@@ -3252,6 +3062,13 @@
           "publishedMs": null
         },
         {
+          "videoId": "Te9MFi_ll9Q",
+          "title": "Let's Play…Barky Boats 💙 🛶  | Bluey and Bingo Playtime ⭐️ | Bluey",
+          "thumbnail": "https://i.ytimg.com/vi/Te9MFi_ll9Q/hqdefault.jpg",
+          "publishedText": "7 日前",
+          "publishedMs": null
+        },
+        {
           "videoId": "blFd2pZ_eEc",
           "title": "1 HOUR of Pretend Play at School 🍼 💙 Rusty is a Baby to Bluey 🤣 | Bluey",
           "thumbnail": "https://i.ytimg.com/vi/blFd2pZ_eEc/hqdefault.jpg",
@@ -3263,6 +3080,13 @@
           "title": "FULL EPISODES 💙 🍼 Baby Bluey Rolls Over! 🥹 | Bluey",
           "thumbnail": "https://i.ytimg.com/vi/7PBDE0051wc/hqdefault.jpg",
           "publishedText": "5 日前",
+          "publishedMs": null
+        },
+        {
+          "videoId": "751y03NGCK8",
+          "title": "Let's Play…Pavlova 💙 😋 | Bluey and Bingo Playtime | Bluey",
+          "thumbnail": "https://i.ytimg.com/vi/751y03NGCK8/hqdefault.jpg",
+          "publishedText": "4 日前",
           "publishedMs": null
         },
         {
@@ -3285,10 +3109,17 @@
           "thumbnail": "https://i.ytimg.com/vi/4AIl54tH89U/hqdefault.jpg",
           "publishedText": "1 日前",
           "publishedMs": null
+        },
+        {
+          "videoId": "nWC1TulOPJ4",
+          "title": "Let's Play…Seesaw 💙 | Bluey and Bingo Playtime | Bluey",
+          "thumbnail": "https://i.ytimg.com/vi/nWC1TulOPJ4/hqdefault.jpg",
+          "publishedText": "3 小時前",
+          "publishedMs": null
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/7Jlomy-7asRjE8WHiLbAqw-LJq5VdyRpBnXU7yxLi-lqXS_OSB5Kd7MLDv9ybsafyOdi5uzCCQ",
-      "fetchedAt": 1790964725052
+      "fetchedAt": 1790965322339
     },
     {
       "name": "Pocoyo English",
@@ -3507,7 +3338,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/T6bwxyLIDyUN0fh4OIXw6sG8YJAQZYNMVwMa1lMBpvnwhXnTDAQafmNdZyeklEtG_gF0KmrRqQ",
-      "fetchedAt": 1790964725145
+      "fetchedAt": 1790965322509
     },
     {
       "name": "Hey Duggee",
@@ -3560,6 +3391,13 @@
           "videoId": "Nhx30B6LgZ0",
           "title": "Duggee's Toys And Activities! ⚽️ | Hey Duggee",
           "thumbnail": "https://i.ytimg.com/vi/Nhx30B6LgZ0/hqdefault.jpg",
+          "publishedText": "2 個月前",
+          "publishedMs": null
+        },
+        {
+          "videoId": "Rwp6h5r04DI",
+          "title": "Duggee's Most Popular Episodes Ever! | 60+ Minutes | Hey Duggee",
+          "thumbnail": "https://i.ytimg.com/vi/Rwp6h5r04DI/hqdefault.jpg",
           "publishedText": "2 個月前",
           "publishedMs": null
         },
@@ -3719,7 +3557,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/H4OkKHNdMfPBVbEq2XDr2uQoKSlFGzjPDG-UnzDMUhZQAoovK81Cidw4aKR_9f-84Bh6i9gA",
-      "fetchedAt": 1790964725518
+      "fetchedAt": 1790965322955
     },
     {
       "name": "Mr Tumble",
@@ -3938,7 +3776,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/P6U-dvZm19iClB03eXga8Xue9oecdRtaebIzoxVWQmUoL9lorekmtlP14975cpF9eXUfqmk9Xw",
-      "fetchedAt": 1790964725563
+      "fetchedAt": 1790965322931
     },
     {
       "name": "Sesame Street",
@@ -4157,7 +3995,7 @@
         }
       ],
       "avatar": "https://yt3.googleusercontent.com/UqIbNSghcysIlsbnGUxGMcY1Me7_bJ_zCrjz1oy9PueZVo63d1CnIk1tz8sAmTMNX9ojl4MhDQ",
-      "fetchedAt": 1790964725620
+      "fetchedAt": 1790965322957
     }
   ]
 }

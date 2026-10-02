@@ -1,11 +1,12 @@
 // app.js — KidsTube client
-// v2: combines 20-per-channel picks into one big shuffled grid.
+// v3: combine 20-per-channel picks into one big shuffled list.
+// v4: sidebar shows channel profile picture instead of red dot.
 const state = {
   data: null,
-  activeChannel: null,    // null = all channels, big shuffled list
+  activeChannel: null,
   picksPerChannel: 20,
-  picksByChannel: new Map(),  // channelId -> array of video indices
-  flatOrder: [],              // flattened [{chIdx, vidIdx}, ...] for big grid
+  picksByChannel: new Map(),
+  flatOrder: [],
 };
 
 const $ = (sel) => document.querySelector(sel);
@@ -61,16 +62,23 @@ function render() {
   renderFooter();
 }
 
+function avatarHTML(ch) {
+  if (!ch.avatar) return '<span class="ch-dot"></span>';
+  const src = ch.avatar + '=s48-c-k-c0x00ffffff-no-rj';
+  return `<img class="ch-avatar" src="${escapeAttr(src)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=&quot;ch-dot&quot;></span>'" />`;
+}
+
 function renderNav() {
   const nav = $('#channelNav');
   const channels = state.data.channels;
   const totalActive = state.flatOrder.length;
   nav.innerHTML = '';
 
-  // "All channels" — default view, big shuffled list
   const all = document.createElement('button');
   all.className = 'channel-link' + (state.activeChannel === null ? ' active' : '');
-  all.innerHTML = `<span class="ch-dot"></span> <span>All channels</span> <span class="ch-count">${totalActive}</span>`;
+  all.innerHTML = avatarHTML({avatar: null}) +
+    ' <span class="ch-name">All channels</span>' +
+    ` <span class="ch-count">${totalActive}</span>`;
   all.onclick = () => { state.activeChannel = null; render(); };
   nav.appendChild(all);
 
@@ -78,7 +86,9 @@ function renderNav() {
     const btn = document.createElement('button');
     btn.className = 'channel-link' + (state.activeChannel === ch.channelId ? ' active' : '');
     const count = state.picksByChannel.get(ch.channelId)?.length || 0;
-    btn.innerHTML = `<span class="ch-dot"></span> <span>${escapeHtml(ch.name)}</span> <span class="ch-count">${count}</span>`;
+    btn.innerHTML = avatarHTML(ch) +
+      ` <span class="ch-name">${escapeHtml(ch.name)}</span>` +
+      ` <span class="ch-count">${count}</span>`;
     btn.onclick = () => { state.activeChannel = ch.channelId; render(); };
     nav.appendChild(btn);
   }
@@ -89,7 +99,6 @@ function renderContent() {
   root.innerHTML = '';
 
   if (state.activeChannel) {
-    // Single-channel view: grid of that channel's picks
     const ch = state.data.channels.find(c => c.channelId === state.activeChannel);
     if (!ch) { state.activeChannel = null; return render(); }
     const idxs = state.picksByChannel.get(ch.channelId) || [];
@@ -107,7 +116,6 @@ function renderContent() {
     }
     root.appendChild(section);
   } else {
-    // Big-list view: one big shuffled grid from all channels
     const total = state.flatOrder.length;
     const section = document.createElement('section');
     section.className = 'section';
@@ -181,11 +189,10 @@ function closePlayer() {
 }
 
 function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;' }[c]));
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 function escapeAttr(s) { return escapeHtml(s); }
 
-// Init
 $('#shuffleBtn').onclick = reshuffle;
 $('#playerClose').onclick = closePlayer;
 $('#playerOverlay').onclick = (e) => { if (e.target.id === 'playerOverlay') closePlayer(); };

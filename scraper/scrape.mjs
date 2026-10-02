@@ -169,10 +169,21 @@ function parseYtInitialData(html) {
   return JSON.parse(m[1]);
 }
 
+// Extract channel avatar URL from og:image meta tag.
+// YouTube renders <meta property="og:image" content="https://yt3.googleusercontent.com/...?s900-c-k...">
+// Strip size param so we can request any size at display time.
+function extractAvatar(html) {
+  const m = html.match(/<meta\s+property="og:image"\s+content="(https:\/\/yt3\.googleusercontent\.com\/[^"]+)"/);
+  if (!m) return null;
+  // Strip =sNNN-c... size suffix; we'll add our own at render time.
+  return m[1].replace(/=s\d+(-c-k-c0x00ffffff-no-rj)?$/, '');
+}
+
 async function fetchChannelVideos(channel, maxVideos) {
   const { channelId } = channel;
   const url = `https://www.youtube.com/channel/${channelId}/videos`;
 
+  let avatar = null;
   const videos = [];
   const seen = new Set();
   let token = null;
@@ -186,6 +197,7 @@ async function fetchChannelVideos(channel, maxVideos) {
       } else {
         const html = await fetchHTML(url);
         data = parseYtInitialData(html);
+        avatar = extractAvatar(html);
       }
     } catch (e) {
       console.error(`  ${channel.name}: fetch failed: ${e.message}`);
@@ -209,7 +221,7 @@ async function fetchChannelVideos(channel, maxVideos) {
     await new Promise(r => setTimeout(r, 300));
   }
 
-  return videos.filter(v => !v.publishedMs || v.publishedMs >= CUTOFF_MS);
+  return { videos: videos.filter(v => !v.publishedMs || v.publishedMs >= CUTOFF_MS), avatar };
 }
 
 async function pool(items, limit, fn) {
@@ -231,9 +243,9 @@ async function main() {
   const startedAt = Date.now();
   const perChannel = await pool(CHANNELS, CONCURRENCY, async (ch) => {
     const t0 = Date.now();
-    const vids = await fetchChannelVideos(ch, MAX_PER_CHANNEL);
-    console.log(`  ✓ ${ch.name}: ${vids.length} videos (${((Date.now()-t0)/1000).toFixed(1)}s)`);
-    return { ...ch, videos: vids, fetchedAt: Date.now() };
+    const { videos: vids, avatar } = await fetchChannelVideos(ch, MAX_PER_CHANNEL);
+    console.log(`  ✓ ${ch.name}: ${vids.length} videos${avatar ? ' +avatar' : ''} (${((Date.now()-t0)/1000).toFixed(1)}s)`);
+    return { ...ch, videos: vids, avatar, fetchedAt: Date.now() };
   });
 
   const output = {

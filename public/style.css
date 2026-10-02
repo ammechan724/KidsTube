@@ -115,9 +115,21 @@ body {
 .channel-link:hover { background: var(--bg-hover); }
 .channel-link.active { background: var(--bg-hover); font-weight: 500; }
 .channel-link .ch-dot {
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 24px; height: 24px; border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
+}
+.channel-link .ch-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.channel-link .ch-avatar {
+  width: 24px; height: 24px; border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--bg-elev);
+  object-fit: cover;
 }
 .channel-link .ch-count { color: var(--text-faint); font-size: 12px; margin-left: auto; }
 

@@ -4,7 +4,7 @@
 const state = {
   data: null,
   activeChannel: null,
-  picksPerChannel: 20,
+  picksPerChannel: 100,
   picksByChannel: new Map(),
   flatOrder: [],
 };

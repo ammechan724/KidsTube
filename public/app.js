@@ -199,6 +199,15 @@ $('#playerOverlay').onclick = (e) => { if (e.target.id === 'playerOverlay') clos
 $('#menuToggle').onclick = () => $('#sidebar').classList.toggle('open');
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePlayer(); });
 
+// Mobile: tap outside sidebar to close it.
+document.addEventListener('click', (e) => {
+  const sidebar = $('#sidebar');
+  if (!sidebar.classList.contains('open')) return;
+  if (sidebar.contains(e.target)) return;
+  if ($('#menuToggle').contains(e.target)) return;
+  sidebar.classList.remove('open');
+});
+
 loadData().then(render).catch(e => {
   $('#content').innerHTML = `<div style="color:#f88;padding:40px;text-align:center;">Failed to load: ${escapeHtml(e.message)}</div>`;
 });

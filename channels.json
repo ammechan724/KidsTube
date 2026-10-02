@@ -15,8 +15,10 @@
   { "name": "Teletubbies", "handle": "@Teletubbies", "channelId": "UCOk55dAgB8VnMlhaTEMeX5A" },
   { "name": "ABCmouse", "handle": "@ABCmouse", "channelId": "UCPvEbO2bI5x1MVLUuRJoZXg" },
   { "name": "Bluey", "handle": "@BlueyOfficialChannel", "channelId": "UCVzLLZkDuFGAE2BGdBuBNBg" },
-  { "name": "Pocoyo English", "handle": "@PocoyoEnglish", "channelId": "UCdknlZNiH-2VWrvjXkx9dJA" },
   { "name": "Hey Duggee", "handle": "@HeyDuggeeOfficial", "channelId": "UCj_mFUb-47d9QNiJ5556LjQ" },
   { "name": "Mr Tumble", "handle": "@MrTumble", "channelId": "UCynLtJ9E2c34bui4ON0ovGw" },
-  { "name": "Sesame Street", "handle": "@SesameStreet", "channelId": "UCoookXUzPciGrEZEXmh4Jjg" }
+  { "name": "Sesame Street", "handle": "@SesameStreet", "channelId": "UCoookXUzPciGrEZEXmh4Jjg" },
+  { "name": "Anton V", "handle": "@antonv.", "channelId": "UCqwBArIhD42Nm76GC8Htj4g" },
+  { "name": "Numberblocks", "handle": "@Numberblocks", "channelId": "UCPlwvN0w4qFSP1FllALB92w" },
+  { "name": "Kids Diana Show", "handle": "@KidsDianaShow", "channelId": "UCk8GzjMOrta8yxDcKfylJYw" }
 ]

@@ -177,7 +177,9 @@ function openPlayer(ch, v) {
   $('#playerTitle').textContent = v.title || '';
   $('#playerChannel').textContent = ch.name;
   const frame = $('#playerFrame');
-  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  // playsinline=0 → iOS Safari / Android Chrome will auto-fullscreen the iframe when video starts.
+  // Desktop / iPad split-screen → still inline (modal-styled player, with title + channel).
+  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   $('#playerOverlay').classList.add('active');
   $('#playerOverlay').setAttribute('aria-hidden', 'false');
 }

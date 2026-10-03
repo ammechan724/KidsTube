@@ -173,21 +173,48 @@ function formatTimeAgo(iso) {
   return `${d}d ago`;
 }
 
+let fsHintTimer = null;
+
 function openPlayer(ch, v) {
   $('#playerTitle').textContent = v.title || '';
   $('#playerChannel').textContent = ch.name;
   const frame = $('#playerFrame');
-  // playsinline=0 → iOS Safari / Android Chrome will auto-fullscreen the iframe when video starts.
-  // Desktop / iPad split-screen → still inline (modal-styled player, with title + channel).
-  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  // v13: more conservative embed params to minimise YouTube exit points
+  //   - rel=0               → no related videos from other channels at end
+  //   - modestbranding=1    → small YouTube text instead of big logo
+  //   - playsinline=0       → iOS/Android attempt to launch fullscreen
+  //   - disablekb=1         → no keyboard navigation (kid can't arrow-key around)
+  //   - iv_load_policy=3    → hide annotations
+  //   - cc_load_policy=0    → no captions overlay by default
+  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=0&disablekb=1&iv_load_policy=3&cc_load_policy=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   $('#playerOverlay').classList.add('active');
   $('#playerOverlay').setAttribute('aria-hidden', 'false');
+  showFsHint();
+}
+
+function showFsHint() {
+  clearTimeout(fsHintTimer);
+  const hint = $('#fsHint');
+  hint.setAttribute('aria-hidden', 'false');
+  hint.classList.remove('visible', 'fade');
+  // Show after a frame so transition fires reliably
+  requestAnimationFrame(() => {
+    hint.classList.add('visible');
+    // Auto-disappear 3s after playback starts (≈3s after open since autoplay is immediate)
+    fsHintTimer = setTimeout(() => {
+      hint.classList.add('fade');
+    }, 3000);
+  });
 }
 
 function closePlayer() {
+  clearTimeout(fsHintTimer);
   $('#playerOverlay').classList.remove('active');
   $('#playerOverlay').setAttribute('aria-hidden', 'true');
   $('#playerFrame').innerHTML = '';
+  const hint = $('#fsHint');
+  hint.classList.remove('visible', 'fade');
+  hint.setAttribute('aria-hidden', 'true');
 }
 
 function escapeHtml(s) {

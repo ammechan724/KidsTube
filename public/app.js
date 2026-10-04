@@ -173,48 +173,114 @@ function formatTimeAgo(iso) {
   return `${d}d ago`;
 }
 
-let fsHintTimer = null;
+// v14: iframe load watchdog — PWA (WKWebView) sometimes fails to load YouTube embed
+//      on first try. We show a spinner, wait for `load` event, and auto-retry with
+//      cache-buster if it stalls.
+const IFRAME_LOAD_TIMEOUT_MS = 30000;
+const MAX_LOAD_RETRIES = 2;
+let iframeLoadTimer = null;
+let currentLoadRetry = 0;
+let currentBaseSrc = null;
+
+function loadingMarkup() {
+  return `<div class="player-loading active" id="playerLoading"><div class="spinner"></div><div class="loading-text">載入中…</div></div>`;
+}
 
 function openPlayer(ch, v) {
   $('#playerTitle').textContent = v.title || '';
   $('#playerChannel').textContent = ch.name;
-  const frame = $('#playerFrame');
-  // v13: more conservative embed params to minimise YouTube exit points
+  // v13/v14: more conservative embed params to minimise YouTube exit points
   //   - rel=0               → no related videos from other channels at end
   //   - modestbranding=1    → small YouTube text instead of big logo
   //   - playsinline=0       → iOS/Android attempt to launch fullscreen
   //   - disablekb=1         → no keyboard navigation (kid can't arrow-key around)
   //   - iv_load_policy=3    → hide annotations
   //   - cc_load_policy=0    → no captions overlay by default
-  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=0&disablekb=1&iv_load_policy=3&cc_load_policy=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  currentBaseSrc = `https://www.youtube.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=0&disablekb=1&iv_load_policy=3&cc_load_policy=0`;
+  currentLoadRetry = 0;
+  $('#playerFrame').innerHTML =
+    loadingMarkup() +
+    `<iframe id="playerIframe" src="${currentBaseSrc}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   $('#playerOverlay').classList.add('active');
   $('#playerOverlay').setAttribute('aria-hidden', 'false');
-  showFsHint();
+  startLoadWatchdog();
 }
 
-function showFsHint() {
-  clearTimeout(fsHintTimer);
-  const hint = $('#fsHint');
-  hint.setAttribute('aria-hidden', 'false');
-  hint.classList.remove('visible', 'fade');
-  // Show after a frame so transition fires reliably
-  requestAnimationFrame(() => {
-    hint.classList.add('visible');
-    // Auto-disappear 3s after playback starts (≈3s after open since autoplay is immediate)
-    fsHintTimer = setTimeout(() => {
-      hint.classList.add('fade');
-    }, 3000);
-  });
+function startLoadWatchdog() {
+  clearTimeout(iframeLoadTimer);
+  const iframe = document.getElementById('playerIframe');
+  if (!iframe) return;
+  const onLoad = () => {
+    hideLoading();
+    clearTimeout(iframeLoadTimer);
+    iframeLoadTimer = null;
+    currentLoadRetry = 0;
+  };
+  iframe.addEventListener('load', onLoad);
+  iframeLoadTimer = setTimeout(scheduleRetry, IFRAME_LOAD_TIMEOUT_MS);
+}
+
+function scheduleRetry() {
+  const iframe = document.getElementById('playerIframe');
+  if (!iframe || !currentBaseSrc) return;
+  if (currentLoadRetry >= MAX_LOAD_RETRIES) {
+    hideLoading();
+    showLoadError();
+    return;
+  }
+  currentLoadRetry++;
+  const newSrc = `${currentBaseSrc}&_retry=${currentLoadRetry}&_t=${Date.now()}`;
+  iframe.src = newSrc;
+  startLoadWatchdog();
+}
+
+function manualRetry() {
+  const iframe = document.getElementById('playerIframe');
+  if (!iframe || !currentBaseSrc) return;
+  currentLoadRetry = 0;
+  resetLoadingUI();
+  showLoading();
+  iframe.src = `${currentBaseSrc}&_manual=${Date.now()}`;
+  startLoadWatchdog();
+}
+
+function showLoading() {
+  const el = document.getElementById('playerLoading');
+  if (el) el.classList.add('active');
+}
+
+function hideLoading() {
+  const el = document.getElementById('playerLoading');
+  if (el) el.classList.remove('active');
+}
+
+function resetLoadingUI() {
+  const el = document.getElementById('playerLoading');
+  if (el) {
+    el.innerHTML = `<div class="spinner"></div><div class="loading-text">載入中…</div>`;
+  }
+}
+
+function showLoadError() {
+  const el = document.getElementById('playerLoading');
+  if (!el) return;
+  el.classList.add('active');
+  el.innerHTML = `
+    <div class="load-error">
+      <div class="load-error-text">影片載入失敗</div>
+      <button class="load-retry-btn" id="loadRetryBtn" type="button">重新載入</button>
+    </div>`;
+  document.getElementById('loadRetryBtn')?.addEventListener('click', manualRetry);
 }
 
 function closePlayer() {
-  clearTimeout(fsHintTimer);
+  clearTimeout(iframeLoadTimer);
+  iframeLoadTimer = null;
+  currentLoadRetry = 0;
+  currentBaseSrc = null;
   $('#playerOverlay').classList.remove('active');
   $('#playerOverlay').setAttribute('aria-hidden', 'true');
   $('#playerFrame').innerHTML = '';
-  const hint = $('#fsHint');
-  hint.classList.remove('visible', 'fade');
-  hint.setAttribute('aria-hidden', 'true');
 }
 
 function escapeHtml(s) {

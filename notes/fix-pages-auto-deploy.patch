@@ -1,0 +1,27 @@
+--- a/.github/workflows/scrape.yml
++++ b/.github/workflows/scrape.yml
+@@ -9,6 +9,7 @@
+ 
+ permissions:
+   contents: write   # needed so the workflow can commit the refreshed JSON
++  actions: write    # needed so this workflow can dispatch the Pages deploy
+ 
+ jobs:
+   scrape:
+@@ -36,4 +37,14 @@
+             git push
+           else
+             echo "No changes."
+-          fi
+\ No newline at end of file
++          fi
++
++      - name: Deploy to Pages
++        # A GITHUB_TOKEN push does NOT trigger pages.yml ("on: push" is suppressed for
++        # pushes made with GITHUB_TOKEN). workflow_dispatch is the one event that always
++        # creates a run, so dispatch the deploy explicitly.
++        if: success()
++        env:
++          GH_TOKEN: ${{ github.token }}
++        run: |
++          gh workflow run pages.yml --ref main

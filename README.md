@@ -1,6 +1,6 @@
 # KidsTube 🎬
 
-A curated, kid-safe YouTube front-end for Amme's kid. Pulls the last 1-2 years of videos from a whitelist of 20 kids' channels and shows 20 random picks per channel in a YouTube-style dark UI. No login. No backend. No recommendation loop.
+A curated, kid-safe YouTube front-end for Amme's kid. Pulls the last 1-2 years of videos from a whitelist of 23 kids' channels and shows 20 random picks per channel in a YouTube-style dark UI. No login. No backend. No recommendation loop.
 
 ## How it works
 
@@ -24,11 +24,11 @@ YouTube /videos pages  ──┐
 
 The frontend never talks to YouTube directly — it loads the JSON cache and renders. The scraper is the only thing that talks to YouTube. Videos play inside the official YouTube embed player (in-app iframe), so the kid never leaves the site.
 
-## Channels (20)
+## Channels (23)
 
-Bebefinn · CBeebies · Sarah and Duck · Bounce Patrol · The Wiggles · Twirlywoos · Peppa Pig · Daniel Tiger's Neighborhood · Ms Rachel · Super Simple Songs · Yakka Dee! · Baby Shark · Hogi · Teletubbies · ABCmouse · Bluey · Pocoyo English · Hey Duggee · Mr Tumble · Sesame Street
+Bebefinn · CBeebies · Sarah and Duck · Bounce Patrol · The Wiggles · Twirlywoos · Peppa Pig · Daniel Tiger's Neighborhood · Ms Rachel · Super Simple Songs · Yakka Dee! · Baby Shark · Hogi · Teletubbies · ABCmouse · Bluey · Hey Duggee · Mr Tumble · Sesame Street · Anton V · Numberblocks · Kids Diana Show · Kala EE
 
-(Whitelist locked 2026-10-02. Resolution rule: highest-sub channel per brand; verify by sampling video titles.)
+(Whitelist opened 2026-10-02. Resolution rule: highest-sub channel per brand; verify by sampling video titles. Kala EE added 2026-10-26 — HK Cantonese kids-learning channel, 100K subs.)
 
 ## Run locally
 

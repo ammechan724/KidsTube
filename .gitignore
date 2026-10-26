@@ -3,3 +3,6 @@ node_modules/
 *.log
 .screenshots/
 .previews/
+# local PAT file (see notes/2026-10-26-pat-rotation.md) — never commit
+.pat
+*.pat

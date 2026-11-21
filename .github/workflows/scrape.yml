@@ -43,8 +43,31 @@ jobs:
         # A GITHUB_TOKEN push does NOT trigger pages.yml ("on: push" is suppressed for
         # pushes made with GITHUB_TOKEN). workflow_dispatch is the one event that always
         # creates a run, so dispatch the deploy explicitly.
+        #
+        # We then VERIFY the dispatched run actually succeeded and retry if it
+        # didn't — deploy-pages can fail on a transient artifact-visibility race
+        # (see the "Settle before deploy" step in pages.yml). A failed deploy
+        # means a stale live site, so never exit 0 on a failed deployment.
         if: success()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh workflow run pages.yml --ref main
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            echo "::group::Pages deploy attempt ${attempt}"
+            gh workflow run pages.yml --ref main
+            # give the dispatch a moment to register before listing runs
+            sleep 10
+            RUN_ID="$(gh run list --workflow pages.yml --limit 1 --json databaseId --jq '.[0].databaseId')"
+            echo "Watching Pages run ${RUN_ID}"
+            if gh run watch "$RUN_ID" --exit-status --interval 10; then
+              echo "::endgroup::"
+              echo "Pages deploy succeeded (attempt ${attempt})"
+              exit 0
+            fi
+            echo "::endgroup::"
+            echo "::warning::Pages deploy attempt ${attempt} failed; retrying in 20s"
+            sleep 20
+          done
+          echo "::error::Pages deploy failed after 3 attempts — live site is stale"
+          exit 1

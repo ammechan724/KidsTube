@@ -26,5 +26,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
+      - name: Settle before deploy
+        # upload-pages-artifact finalises the artifact, then deploy-pages
+        # immediately lists the run's artifacts. That list endpoint is
+        # eventually consistent, so a fast deploy can observe 0 artifacts and
+        # fail with "No artifacts named github-pages were found".
+        # Observed 2026-11-21 (run 44841380563): upload finished 00:05:07.879,
+        # deploy listed at 00:05:08.09 -> 0 artifacts -> failure.
+        # A short settle delay removes the race entirely.
+        run: sleep 20
       - id: deployment
         uses: actions/deploy-pages@v4

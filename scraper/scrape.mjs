@@ -165,9 +165,47 @@ async function postYoutubei(body) {
 }
 
 function parseYtInitialData(html) {
+  // Variant A (legacy): `var ytInitialData = {...};` inside a <script> block.
   const m = html.match(/var ytInitialData\s*=\s*(\{.*?\});\s*<\/script>/);
-  if (!m) throw new Error('ytInitialData not found');
-  return JSON.parse(m[1]);
+  if (m) return JSON.parse(m[1]);
+
+  // Variant B (current): the payload ships as a JSON <script type="application/json">
+  // tag and YouTube's own bootstrap assigns it to window.ytInitialData.
+  // YouTube serves this variant on roughly 1 request in 15 (A/B / edge routing),
+  // so before this was handled the scraper silently produced 0 videos for a
+  // random channel on every run. See notes/2026-11-21-scraper-variant-fix.md.
+  const tag = html.match(/<script[^>]*\bid=["']yt-initial-data["'][^>]*>([\s\S]*?)<\/script>/);
+  if (tag) {
+    try {
+      return JSON.parse(tag[1]);
+    } catch (e) {
+      throw new Error(`yt-initial-data JSON parse failed: ${e.message}`);
+    }
+  }
+
+  throw new Error('ytInitialData not found');
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// Retry transient network / parse failures with linear backoff.
+// YouTube occasionally answers 200 with an unexpected page shape; a second
+// request almost always returns a usable one.
+async function withRetry(fn, { attempts = 3, baseDelay = 1200, label = '' } = {}) {
+  let lastErr;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fn();
+    } catch (e) {
+      lastErr = e;
+      if (i < attempts) {
+        const d = baseDelay * i;
+        console.warn(`  retry ${i}/${attempts - 1} in ${d}ms${label ? ` [${label}]` : ''}: ${e.message}`);
+        await sleep(d);
+      }
+    }
+  }
+  throw lastErr;
 }
 
 // Extract channel avatar URL from og:image meta tag.
@@ -194,14 +232,20 @@ async function fetchChannelVideos(channel, maxVideos) {
     let data;
     try {
       if (token) {
-        data = await postYoutubei({ context: { client: CLIENT }, continuation: token });
+        data = await withRetry(
+          () => postYoutubei({ context: { client: CLIENT }, continuation: token }),
+          { attempts: 3, label: `${channel.name} p${pages + 1}` },
+        );
       } else {
-        const html = await fetchHTML(url);
-        data = parseYtInitialData(html);
-        avatar = extractAvatar(html);
+        const got = await withRetry(async () => {
+          const html = await fetchHTML(url);
+          return { html, data: parseYtInitialData(html) };
+        }, { attempts: 3, label: channel.name });
+        avatar = extractAvatar(got.html);
+        data = got.data;
       }
     } catch (e) {
-      console.error(`  ${channel.name}: fetch failed: ${e.message}`);
+      console.error(`  ${channel.name}: fetch failed after ${3} attempts: ${e.message}`);
       break;
     }
 
@@ -239,14 +283,50 @@ async function pool(items, limit, fn) {
   return results;
 }
 
+// Previous run's cache, keyed by channelId. Used as a safety net so a transient
+// YouTube failure can never publish a channel with 0 videos (which would
+// silently drop a whole show from the kid's site for a week).
+async function loadPreviousCache() {
+  const p = path.join(ROOT, 'data', 'videos.json');
+  try {
+    const raw = JSON.parse(await fs.readFile(p, 'utf8'));
+    const map = new Map();
+    for (const c of raw.channels || []) {
+      if (c && c.channelId) map.set(c.channelId, c);
+    }
+    console.log(`Previous cache loaded: ${map.size} channels`);
+    return map;
+  } catch (e) {
+    console.log(`No previous cache (${e.code || e.message}) — cold start`);
+    return new Map();
+  }
+}
+
 async function main() {
   console.log(`Scraping ${CHANNELS.length} channels · max ${MAX_PER_CHANNEL}/ch · last ${DAYS_BACK} days · concurrency ${CONCURRENCY}`);
   const startedAt = Date.now();
+  const previous = await loadPreviousCache();
+
   const perChannel = await pool(CHANNELS, CONCURRENCY, async (ch) => {
     const t0 = Date.now();
     const { videos: vids, avatar } = await fetchChannelVideos(ch, MAX_PER_CHANNEL);
-    console.log(`  ✓ ${ch.name}: ${vids.length} videos${avatar ? ' +avatar' : ''} (${((Date.now()-t0)/1000).toFixed(1)}s)`);
-    return { ...ch, videos: vids, avatar, fetchedAt: Date.now() };
+    let finalVideos = vids;
+    let finalAvatar = avatar;
+    let cached = false;
+
+    if (vids.length === 0) {
+      const prev = previous.get(ch.channelId);
+      if (prev && (prev.videos || []).length > 0) {
+        finalVideos = prev.videos;
+        finalAvatar = avatar || prev.avatar || null;
+        cached = true;
+        const when = prev.fetchedAt ? new Date(prev.fetchedAt).toISOString().slice(0, 10) : 'unknown date';
+        console.warn(`  ! ${ch.name}: 0 videos this run — keeping ${prev.videos.length} cached videos (from ${when})`);
+      }
+    }
+
+    console.log(`  ✓ ${ch.name}: ${finalVideos.length} videos${finalAvatar ? ' +avatar' : ''}${cached ? ' (cached)' : ''} (${((Date.now() - t0) / 1000).toFixed(1)}s)`);
+    return { ...ch, videos: finalVideos, avatar: finalAvatar, fetchedAt: Date.now(), cached };
   });
 
   const output = {

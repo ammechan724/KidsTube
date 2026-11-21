@@ -208,6 +208,73 @@ async function withRetry(fn, { attempts = 3, baseDelay = 1200, label = '' } = {}
   throw lastErr;
 }
 
+// --- YouTube per-channel RSS feed (independent second source) ---
+// The /videos HTML grid occasionally comes back with an empty grid for flagged
+// IPs — GitHub's US runner IPs do this consistently for Daniel Tiger's
+// Neighborhood, which then hides the whole channel from the site (the frontend
+// drops channels with 0 videos). The RSS feed is a plain XML endpoint that is
+// not layout-scraped, so it is a far more reliable second source.
+//
+// It only carries the latest ~15 uploads, so it is merged in as a supplement
+// rather than a replacement.
+function decodeXml(s) {
+  if (!s) return '';
+  return s
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(Number(d)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+// Render an exact timestamp the same way YouTube's own relative labels read,
+// so a card fed by the RSS feed looks identical to one fed by the grid scrape.
+function formatRelative(ms) {
+  const diff = Date.now() - ms;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return '刚刚';
+  if (mins < 60) return `${mins} 分鐘前`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours} 小時前`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days} 天前`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months} 個月前`;
+  return `${Math.floor(days / 365)} 年前`;
+}
+
+function parseRssEntries(xml) {
+  const out = [];
+  for (const m of xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)) {
+    const en = m[1];
+    const videoId = (en.match(/<yt:videoId>([\w-]{11})<\/yt:videoId>/) || [])[1];
+    if (!videoId) continue;
+    const title = decodeXml((en.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '');
+    const published = (en.match(/<published>([\s\S]*?)<\/published>/) || [])[1];
+    const publishedMs = published ? Date.parse(published) : NaN;
+    const thumb = (en.match(/<media:thumbnail url="([^"]+)"/) || [])[1]
+      || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+    out.push({
+      videoId,
+      title,
+      thumbnail: thumb.replace(/=s\d+(-c-k-c0x00ffffff-no-rj)?$/, ''),
+      publishedText: Number.isFinite(publishedMs) ? formatRelative(publishedMs) : null,
+      publishedMs: Number.isFinite(publishedMs) ? publishedMs : null,
+      source: 'rss',
+    });
+  }
+  return out;
+}
+
+async function fetchChannelRSS(channelId) {
+  const url = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+  const xml = await fetchHTML(url);
+  if (!xml.includes('<entry>')) throw new Error('RSS feed had no entries');
+  return parseRssEntries(xml);
+}
+
 // Extract channel avatar URL from og:image meta tag.
 // YouTube renders <meta property="og:image" content="https://yt3.googleusercontent.com/...?s900-c-k...">
 // Strip size param so we can request any size at display time.
@@ -264,6 +331,24 @@ async function fetchChannelVideos(channel, maxVideos) {
     token = findContinuation(data);
     if (!token) break;
     await new Promise(r => setTimeout(r, 300));
+  }
+
+  // Merge in the RSS feed as an independent second source. This guarantees the
+  // newest uploads are present even when the HTML grid came back empty.
+  try {
+    const rss = await withRetry(() => fetchChannelRSS(channelId), {
+      attempts: 2, baseDelay: 1000, label: `${channel.name} rss`,
+    });
+    let added = 0;
+    for (const v of rss) {
+      if (seen.has(v.videoId)) continue;
+      seen.add(v.videoId);
+      videos.push(v);
+      added++;
+    }
+    if (added) console.log(`    ↳ +${added} from RSS`);
+  } catch (e) {
+    console.warn(`  ${channel.name}: RSS fetch failed: ${e.message}`);
   }
 
   return { videos: videos.filter(v => !v.publishedMs || v.publishedMs >= CUTOFF_MS), avatar };
